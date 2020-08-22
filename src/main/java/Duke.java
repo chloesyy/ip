@@ -20,7 +20,7 @@ public class Duke {
         tasks[taskNum-1].isDone = true;
 
         System.out.println("Good job! You've completed: ");
-        System.out.println("[" + tasks[taskNum-1].getStatusIcon() + "] " + tasks[taskNum-1].description);
+        System.out.println("    [" + tasks[taskNum-1].getStatusIcon() + "] " + tasks[taskNum-1].description);
     }
 
     public static void main(String[] args) {
@@ -43,6 +43,6 @@ public class Duke {
             }
             line = in.nextLine();
         }
-        System.out.println("Bye :( Hope to see you again soon!");
+        System.out.println("Bye bye :( Hope to see you again soon!");
     }
 }
