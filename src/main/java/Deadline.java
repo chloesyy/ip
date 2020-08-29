@@ -7,6 +7,7 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
     public void printTask() {
         System.out.print("  " + DESCRIPTOR);
         System.out.print("[" + this.getStatusIcon() + "] " + this.description);

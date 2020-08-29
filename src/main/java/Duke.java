@@ -1,12 +1,50 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static Task[] tasks = new Task[100];
+    public static final int MAX_TASKS = 100;
+    public static Task[] tasks = new Task[MAX_TASKS];
     public static int count = 0;
 
     /*
-    Prints the list of tasks and indicates whether they are done.
+    MAIN METHOD
      */
+    public static void main(String[] args) {
+        String line;
+        Scanner in = new Scanner(System.in);
+
+        printWelcomeMessage();
+        line = in.nextLine();
+
+        while (!line.equals("bye")) {
+            handleLine(line);
+            line = in.nextLine();
+        }
+
+        printExitMessage();
+    }
+
+    public static void printWelcomeMessage() {
+        System.out.println("Welcome! :D This is TaskThomas.");
+        System.out.println("What are you doing today?");
+    }
+
+    public static void printExitMessage() {
+        System.out.println("Bye bye :( Hope to see you again soon!");
+    }
+
+    public static void handleLine(String line) {
+        if (line.equals("list")) {
+            printList();
+        } else if (line.startsWith("done")) {
+            markAsDone(line);
+        } else {
+            addTask(line);
+        }
+    }
+
+    /*
+    Prints the list of tasks and indicates whether they are done.
+    */
     public static void printList() {
         System.out.println("These are the tasks you have now!");
         for (int i = 0; i<count; i++) {
@@ -63,28 +101,5 @@ public class Duke {
     public static void addEvent(String line) {
         String[] descriptionAndAt = line.split(" /at ");
         tasks[count++] = new Event(descriptionAndAt[0], descriptionAndAt[1]);
-    }
-
-
-    public static void main(String[] args) {
-        String line;
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("Welcome! :D This is TaskThomas.");
-        System.out.println("What are you doing today?");
-        line = in.nextLine();
-
-        while (!line.equals("bye")) {
-            if (line.equals("list")) {
-                printList();
-            } else if (line.startsWith("done")) {
-                markAsDone(line);
-            } else {
-                addTask(line);
-            }
-            line = in.nextLine();
-        }
-
-        System.out.println("Bye bye :( Hope to see you again soon!");
     }
 }

@@ -7,6 +7,7 @@ public class Event extends Task {
         this.at = at;
     }
 
+    @Override
     public void printTask() {
         System.out.print("  " + DESCRIPTOR);
         System.out.print("[" + this.getStatusIcon() + "] " + this.description);
