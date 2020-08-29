@@ -4,13 +4,21 @@ public class Duke {
     public static Task[] tasks = new Task[100];
     public static int count = 0;
 
+    /*
+    Prints the list of tasks and indicates whether they are done.
+     */
     public static void printList() {
+        System.out.println("These are the tasks you have now!");
         for (int i = 0; i<count; i++) {
             int taskNum = i + 1;
-            System.out.println(taskNum + ".[" + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+            System.out.print(taskNum + ".");
+            tasks[i].printTask();
         }
     }
 
+    /*
+    Marks a task as done.
+     */
     public static void markAsDone(String line) {
         int taskNum = Integer.parseInt(line.substring(5));
         if (taskNum > count) {
@@ -20,8 +28,43 @@ public class Duke {
         tasks[taskNum-1].isDone = true;
 
         System.out.println("Good job! You've completed: ");
-        System.out.println("    [" + tasks[taskNum-1].getStatusIcon() + "] " + tasks[taskNum-1].description);
+        tasks[taskNum-1].printTask();
     }
+
+    /*
+    Adds a task to the list.
+     */
+    public static void addTask(String line) {
+        if (line.startsWith("todo")) {
+            addTodo(line.substring(5));
+        } else if (line.startsWith("deadline")) {
+            addDeadline(line.substring(9));
+        } else if (line.startsWith("event")) {
+            addEvent(line.substring(6));
+        }
+
+        System.out.println("Okay! I added:");
+        tasks[count-1].printTask();
+        System.out.println("Now you have " + count + " tasks in the list!");
+    }
+
+    /*
+    Adds either a to-do task, deadline task or event task to the list.
+     */
+    public static void addTodo(String line) {
+        tasks[count++] = new Todo(line);
+    }
+
+    public static void addDeadline(String line) {
+        String[] descriptionAndBy = line.split(" /by ");
+        tasks[count++] = new Deadline(descriptionAndBy[0], descriptionAndBy[1]);
+    }
+
+    public static void addEvent(String line) {
+        String[] descriptionAndAt = line.split(" /at ");
+        tasks[count++] = new Event(descriptionAndAt[0], descriptionAndAt[1]);
+    }
+
 
     public static void main(String[] args) {
         String line;
@@ -37,12 +80,11 @@ public class Duke {
             } else if (line.startsWith("done")) {
                 markAsDone(line);
             } else {
-                // Add task to tasks array
-                tasks[count++] = new Task(line);
-                System.out.println("added: " + tasks[count - 1].description);
+                addTask(line);
             }
             line = in.nextLine();
         }
+
         System.out.println("Bye bye :( Hope to see you again soon!");
     }
 }
