@@ -74,11 +74,26 @@ public class Duke {
      */
     public static void addTask(String line) {
         if (line.startsWith("todo")) {
-            addTodo(line.substring(5));
+            try {
+                addTodo(line.substring(5));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Ohno! The todo description cannot be empty :(");
+                return;
+            }
         } else if (line.startsWith("deadline")) {
-            addDeadline(line.substring(9));
+            try {
+                addDeadline(line.substring(9));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Ohno! The deadline needs a description and a /by :(");
+                return;
+            }
         } else if (line.startsWith("event")) {
-            addEvent(line.substring(6));
+            try {
+                addEvent(line.substring(6));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Ohno! The event needs a description and an /at :(");
+                return;
+            }
         }
 
         System.out.println("Okay! I added:");
