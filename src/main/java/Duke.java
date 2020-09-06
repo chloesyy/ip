@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class Duke {
@@ -46,6 +47,11 @@ public class Duke {
     Prints the list of tasks and indicates whether they are done.
     */
     public static void printList() {
+        if (count == 0) {
+            System.out.println("Oops! You have no tasks in your list.");
+            return;
+        }
+
         System.out.println("These are the tasks you have now!");
         for (int i = 0; i<count; i++) {
             int taskNum = i + 1;
@@ -58,15 +64,28 @@ public class Duke {
     Marks a task as done.
      */
     public static void markAsDone(String line) {
-        int taskNum = Integer.parseInt(line.substring(5));
-        if (taskNum > count) {
-            System.out.println("Oh no! This is an invalid task number. :(");
+        int taskNum = 0;
+        try {
+            taskNum = Integer.parseInt(line.substring(5));
+        } catch (NumberFormatException e) {
+            System.out.println("Ohno! Please list a task number to be marked done :(");
+            return;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Ohno! You didn't list the task number :(");
             return;
         }
-        tasks[taskNum-1].isDone = true;
 
-        System.out.println("Good job! You've completed: ");
-        tasks[taskNum-1].printTask();
+        try {
+            tasks[taskNum-1].isDone = true;
+            System.out.println("Good job! You've completed: ");
+            tasks[taskNum-1].printTask();
+        } catch (NullPointerException e) {
+            System.out.println("Ohno! This is an invalid task number :(");
+            return;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Ohno! Task numbers start from 1 :(");
+            return;
+        }
     }
 
     /*
@@ -74,11 +93,36 @@ public class Duke {
      */
     public static void addTask(String line) {
         if (line.startsWith("todo")) {
-            addTodo(line.substring(5));
+            try {
+                addTodo(line.substring(5));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Ohno! The todo description cannot be empty :(");
+                return;
+            }
         } else if (line.startsWith("deadline")) {
-            addDeadline(line.substring(9));
+            try {
+                addDeadline(line.substring(9));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Ohno! The deadline needs a description and a /by :(");
+                return;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Ohno! Your deadline needs a /by :(");
+                return;
+            }
         } else if (line.startsWith("event")) {
-            addEvent(line.substring(6));
+            try {
+                addEvent(line.substring(6));
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Ohno! The event needs a description and an /at :(");
+                return;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Ohno! Your event needs an /at :(");
+                return;
+            }
+        } else {
+            // Happens if the task is not labeled
+            System.out.println("Ohno! You should label your task with 'todo', 'deadline', or 'event'...");
+            return;
         }
 
         System.out.println("Okay! I added:");
