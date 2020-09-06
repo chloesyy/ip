@@ -1,4 +1,10 @@
-import java.lang.reflect.Array;
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -83,7 +89,7 @@ public class Duke {
             System.out.println("Ohno! This is an invalid task number :(");
             return;
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Ohno! Task numbers start from 1 :(");
+            System.out.println("Ohno! duke.task.Task numbers start from 1 :(");
             return;
         }
     }
