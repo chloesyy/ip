@@ -48,7 +48,7 @@ public class Duke {
     */
     public static void printList() {
         if (count == 0) {
-            System.out.println("Oops! You have no tasks in your list!");
+            System.out.println("Oops! You have no tasks in your list.");
             return;
         }
 
@@ -68,18 +68,24 @@ public class Duke {
         try {
             taskNum = Integer.parseInt(line.substring(5));
         } catch (NumberFormatException e) {
-            System.out.println("Ohno! Please list the task number to be marked done :(");
+            System.out.println("Ohno! Please list a task number to be marked done :(");
+            return;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Ohno! You didn't list the task number :(");
             return;
         }
-        if (taskNum > count) {
+
+        try {
+            tasks[taskNum-1].isDone = true;
+            System.out.println("Good job! You've completed: ");
+            tasks[taskNum-1].printTask();
+        } catch (NullPointerException e) {
             System.out.println("Ohno! This is an invalid task number :(");
             return;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Ohno! Task numbers start from 1 :(");
+            return;
         }
-
-        tasks[taskNum-1].isDone = true;
-
-        System.out.println("Good job! You've completed: ");
-        tasks[taskNum-1].printTask();
     }
 
     /*
