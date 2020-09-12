@@ -43,6 +43,8 @@ public class Duke {
             printList();
         } else if (line.startsWith("done")) {
             markAsDone(line);
+        } else if (line.startsWith("delete")) {
+            deleteTask(line);
         } else {
             addTask(line);
         }
@@ -82,13 +84,37 @@ public class Duke {
         try {
             Task task = tasks.get(taskNum-1);
             task.isDone = true;
-            System.out.println("Good job! You've completed: ");
+            System.out.println("Good job! You've completed:");
             task.printTask();
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Ohno! This is an invalid task number :(");
             return;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Ohno! duke.task.Task numbers start from 1 :(");
+        }
+    }
+
+    /*
+    Deletes a task from list.
+     */
+    public static void deleteTask(String line) {
+        int taskNum = 0;
+        try {
+            taskNum = Integer.parseInt(line.substring(7));
+        } catch (NumberFormatException e) {
+            System.out.println("Ohno! Please list a task number to be marked done :(");
+            return;
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Ohno! You didn't list the task number :(");
+            return;
+        }
+
+        try {
+            Task task = tasks.get(taskNum - 1);
+            tasks.remove(task);
+            System.out.println("Alright lazy bum... I'll delete this:");
+            task.printTask();
+            System.out.println("Now you have " + tasks.size() + " tasks in the list!");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Ohno! This is an invalid task number :(");
             return;
         }
     }
