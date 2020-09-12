@@ -11,8 +11,8 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        // Return tick or X symbols
-        return (isDone ? "\u2713" : "\u2718");
+        // Return Y or N symbols
+        return (isDone ? "[Y]" : "[N]");
     }
 
     public abstract String getDescriptor();
@@ -20,6 +20,6 @@ public abstract class Task {
     public abstract String toString();
 
     public void printTask() {
-        System.out.println("[" + this.getStatusIcon() + "] " + this.description);
+        System.out.println(this.getStatusIcon() + " " + this.description);
     }
 }

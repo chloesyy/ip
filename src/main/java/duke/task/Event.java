@@ -22,7 +22,7 @@ public class Event extends Task {
     @Override
     public void printTask() {
         System.out.print("  " + DESCRIPTOR);
-        System.out.print("[" + this.getStatusIcon() + "] " + this.description);
+        System.out.print(this.getStatusIcon() + " " + this.description);
         System.out.println(" (at: " + this.at + ")");
     }
 }

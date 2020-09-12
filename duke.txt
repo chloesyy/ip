@@ -1,7 +1,4 @@
 [T] | 0 | nothing
 [D] | 0 | nothing | today
 [E] | 1 | nothing | today
-[T] | 1 | here
-
-
 
