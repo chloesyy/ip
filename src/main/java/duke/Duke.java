@@ -5,12 +5,11 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-    public static final int MAX_TASKS = 100;
-    public static Task[] tasks = new Task[MAX_TASKS];
-    public static int count = 0;
+    public static ArrayList<Task> tasks = new ArrayList<>();
 
     /*
     MAIN METHOD
@@ -53,16 +52,15 @@ public class Duke {
     Prints the list of tasks and indicates whether they are done.
     */
     public static void printList() {
-        if (count == 0) {
+        if (tasks.size() == 0) {
             System.out.println("Oops! You have no tasks in your list.");
             return;
         }
 
         System.out.println("These are the tasks you have now!");
-        for (int i = 0; i<count; i++) {
-            int taskNum = i + 1;
-            System.out.print(taskNum + ".");
-            tasks[i].printTask();
+        for (Task task : tasks) {
+            System.out.print(tasks.indexOf(task)+1 + ".");
+            task.printTask();
         }
     }
 
@@ -82,9 +80,10 @@ public class Duke {
         }
 
         try {
-            tasks[taskNum-1].isDone = true;
+            Task task = tasks.get(taskNum-1);
+            task.isDone = true;
             System.out.println("Good job! You've completed: ");
-            tasks[taskNum-1].printTask();
+            task.printTask();
         } catch (NullPointerException e) {
             System.out.println("Ohno! This is an invalid task number :(");
             return;
@@ -132,24 +131,24 @@ public class Duke {
         }
 
         System.out.println("Okay! I added:");
-        tasks[count-1].printTask();
-        System.out.println("Now you have " + count + " tasks in the list!");
+        tasks.get(tasks.size()-1).printTask();
+        System.out.println("Now you have " + tasks.size() + " tasks in the list!");
     }
 
     /*
     Adds either a to-do task, deadline task or event task to the list.
      */
     public static void addTodo(String line) {
-        tasks[count++] = new Todo(line);
+        tasks.add(new Todo(line));
     }
 
     public static void addDeadline(String line) {
         String[] descriptionAndBy = line.split(" /by ");
-        tasks[count++] = new Deadline(descriptionAndBy[0], descriptionAndBy[1]);
+        tasks.add(new Deadline(descriptionAndBy[0], descriptionAndBy[1]));
     }
 
     public static void addEvent(String line) {
         String[] descriptionAndAt = line.split(" /at ");
-        tasks[count++] = new Event(descriptionAndAt[0], descriptionAndAt[1]);
+        tasks.add(new Event(descriptionAndAt[1], descriptionAndAt[1]));
     }
 }
