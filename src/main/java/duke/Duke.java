@@ -86,7 +86,7 @@ public class Duke {
 
     public static void printWelcomeMessage() {
         System.out.println("Welcome! :D This is TaskThomas.");
-        System.out.println("What are you doing today?");
+        System.out.println("What are you doing today? \n");
     }
 
     public static void printExitMessage() {
@@ -112,7 +112,7 @@ public class Duke {
     */
     public static void printList() {
         if (tasks.size() == 0) {
-            System.out.println("Oops! You have no tasks in your list.");
+            System.out.println("Oops! You have no tasks in your list. \n");
             return;
         }
 
@@ -121,6 +121,7 @@ public class Duke {
             System.out.print(tasks.indexOf(task)+1 + ".");
             task.printTask();
         }
+        System.out.println();
     }
 
     /*
@@ -131,10 +132,10 @@ public class Duke {
         try {
             taskNum = Integer.parseInt(line.substring(5));
         } catch (NumberFormatException e) {
-            System.out.println("Ohno! Please list a task number to be marked done :(");
+            System.out.println("Ohno! Please list a task number to be marked done :( \n");
             return;
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Ohno! You didn't list the task number :(");
+            System.out.println("Ohno! You didn't list the task number :( \n");
             return;
         }
 
@@ -149,11 +150,12 @@ public class Duke {
             // Prints output message
             System.out.println("Good job! You've completed:");
             task.printTask();
+            System.out.println();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Ohno! This is an invalid task number :(");
+            System.out.println("Ohno! This is an invalid task number :( \n");
             return;
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong: " + e.getMessage() + "\n");
         }
     }
 
@@ -165,10 +167,10 @@ public class Duke {
         try {
             taskNum = Integer.parseInt(line.substring(7));
         } catch (NumberFormatException e) {
-            System.out.println("Ohno! Please list a task number to be marked done :(");
+            System.out.println("Ohno! Please list a task number to be marked done :( \n");
             return;
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Ohno! You didn't list the task number :(");
+            System.out.println("Ohno! You didn't list the task number :( \n");
             return;
         }
 
@@ -183,12 +185,12 @@ public class Duke {
             // Print output message
             System.out.println("Alright lazy bum... I'll delete this:");
             task.printTask();
-            System.out.println("Now you have " + tasks.size() + " tasks in the list!");
+            System.out.println("Now you have " + tasks.size() + " tasks in the list! \n");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Ohno! This is an invalid task number :(");
+            System.out.println("Ohno! This is an invalid task number :( \n");
             return;
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong: " + e.getMessage() + "\n");
             return;
         }
     }
@@ -201,38 +203,38 @@ public class Duke {
             try {
                 addTodo(line.substring(5), false);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Ohno! The todo description cannot be empty :(");
+                System.out.println("Ohno! The todo description cannot be empty :( \n");
                 return;
             }
         } else if (line.startsWith("deadline")) {
             try {
                 addDeadline(line.substring(9), false);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Ohno! The deadline needs a description and a /by :(");
+                System.out.println("Ohno! The deadline needs a description and a /by :( \n");
                 return;
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Ohno! Your deadline needs a /by :(");
+                System.out.println("Ohno! Your deadline needs a /by :( \n");
                 return;
             }
         } else if (line.startsWith("event")) {
             try {
                 addEvent(line.substring(6), false);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Ohno! The event needs a description and an /at :(");
+                System.out.println("Ohno! The event needs a description and an /at :( \n");
                 return;
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Ohno! Your event needs an /at :(");
+                System.out.println("Ohno! Your event needs an /at :( \n");
                 return;
             }
         } else {
             // Happens if the task is not labeled
-            System.out.println("Ohno! You should label your task with 'todo', 'deadline', or 'event'...");
+            System.out.println("Ohno! You should label your task with 'todo', 'deadline', or 'event'... \n");
             return;
         }
 
         System.out.println("Okay! I added:");
         tasks.get(tasks.size()-1).printTask();
-        System.out.println("Now you have " + tasks.size() + " tasks in the list!");
+        System.out.println("Now you have " + tasks.size() + " tasks in the list! \n");
     }
 
 
@@ -281,7 +283,7 @@ public class Duke {
             writer.write(System.lineSeparator() + line);
             writer.close();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong: " + e.getMessage() + "\n");
         }
     }
 

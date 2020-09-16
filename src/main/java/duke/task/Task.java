@@ -11,8 +11,8 @@ public abstract class Task {
     }
 
     public String getStatusIcon() {
-        // Return Y or N symbols
-        return (isDone ? "[Y]" : "[N]");
+        // Return tick or cross symbols
+        return (isDone ? "[\u2713]" : "[\u2718]");
     }
 
     public abstract String getDescriptor();
