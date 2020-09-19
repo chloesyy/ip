@@ -22,9 +22,9 @@ public class Duke {
         Scanner in = new Scanner(System.in);
 
         try {
-            loadFile();
+            Storage.loadFile(tasks);
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            Ui.printIOExceptionError(e);
         }
 
         Ui.printWelcomeMessage();
@@ -36,50 +36,6 @@ public class Duke {
         }
 
         Ui.printExitMessage();
-    }
-
-
-    /*
-    Loads the file and creates new file if file does not exist
-     */
-    public static void loadFile() throws IOException {
-        File file = new File("duke.txt");
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-
-        Scanner read = new Scanner(file);
-        while (read.hasNext()) {
-            loadFileTask(read.nextLine());
-        }
-        read.close();
-    }
-
-    /*
-    Adds individual tasks into the array
-     */
-    public static void loadFileTask(String line) {
-        String[] taskDetails = line.split(" \\| ");
-
-        switch (taskDetails[0]) {
-        case "[T]":
-            addTodo(taskDetails[2], true);
-            break;
-        case "[D]":
-            addDeadline(taskDetails[2] + " /by " + taskDetails[3], true);
-            break;
-        case "[E]":
-            addEvent(taskDetails[2] + " /at " + taskDetails[3], true);
-            break;
-        default:
-            // Happens if there is nothing in the list (or any garbage text)
-            return;
-        }
-
-        // Mark as done if the task is already done
-        if (taskDetails[1].equals("1")) {
-            tasks.get(tasks.size()-1).isDone = true;
-        }
     }
 
     public static void handleLine(String line) {
@@ -115,7 +71,7 @@ public class Duke {
 
             // Update task arraylist and the file
             task.isDone = true;
-            updateFile(oldTaskString, task.toString());
+            Storage.updateFile(oldTaskString, task.toString());
 
             // Prints output message
             Ui.printMarkedDoneMessage(task);
@@ -149,7 +105,7 @@ public class Duke {
 
             // Updates task arraylist and file
             tasks.remove(task);
-            updateFile(oldTaskString, "");
+            Storage.updateFile(oldTaskString, "");
 
             // Print output message
             Ui.printDeletedTaskMessage(task, tasks);
@@ -211,7 +167,7 @@ public class Duke {
         tasks.add(new Todo(line));
 
         if (!fromFile) {
-            writeToFile("duke.txt", tasks.get(tasks.size()-1).toString());
+            Storage.writeToFile("duke.txt", tasks.get(tasks.size()-1).toString());
         }
     }
 
@@ -220,7 +176,7 @@ public class Duke {
         tasks.add(new Deadline(descriptionAndBy[0], descriptionAndBy[1]));
 
         if (!fromFile) {
-            writeToFile("duke.txt", tasks.get(tasks.size()-1).toString());
+            Storage.writeToFile("duke.txt", tasks.get(tasks.size()-1).toString());
         }
     }
 
@@ -229,51 +185,10 @@ public class Duke {
         tasks.add(new Event(descriptionAndAt[0], descriptionAndAt[1]));
 
         if (!fromFile) {
-            writeToFile("duke.txt", tasks.get(tasks.size()-1).toString());
+            Storage.writeToFile("duke.txt", tasks.get(tasks.size()-1).toString());
         }
     }
 
 
-    /*
 
-    FILE UPDATE AND EDIT METHODS
-
-     */
-    /*
-    Writes data to file
-     */
-    public static void writeToFile(String filePath, String line) {
-        try {
-            FileWriter writer = new FileWriter(filePath, true);
-            writer.write(System.lineSeparator() + line);
-            writer.close();
-        } catch (IOException e) {
-            Ui.printIOExceptionError(e);
-        }
-    }
-
-    /*
-    Updates the file
-     */
-    public static void updateFile(String oldTaskString, String newTaskString) throws IOException {
-        File file = new File("duke.txt");
-        Scanner read = new Scanner(file);
-        StringBuffer buffer = new StringBuffer();
-
-        // Puts everything from file into buffer
-        while (read.hasNext()) {
-            buffer.append(read.nextLine() + System.lineSeparator());
-        }
-
-        read.close();
-
-        // Puts everything from buffer into String
-        String fileContents = buffer.toString();
-
-        // Update the file
-        fileContents = fileContents.replace(oldTaskString, newTaskString);
-        FileWriter writer = new FileWriter("duke.txt");
-        writer.append(fileContents);
-        writer.flush();
-    }
 }

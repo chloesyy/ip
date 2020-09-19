@@ -1,7 +1,4 @@
 [D] | 0 | nothing | today
 [E] | 1 | nothing | today
 [T] | 0 | hello
-[D] | 1 | hello | today
 
-
-[T] | 0 | deadline
