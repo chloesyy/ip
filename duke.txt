@@ -1,4 +1,6 @@
-[D] | 0 | nothing | today
-[E] | 1 | nothing | today
+[T] | 0 | nothing
 [T] | 0 | hello
-
+[T] | 0 | help
+[T] | 0 | a lot
+[E] | 0 | today | today
+[E] | 0 | today | today

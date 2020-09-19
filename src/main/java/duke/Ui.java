@@ -3,83 +3,91 @@ package duke;
 import duke.task.Task;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Ui {
-    public static void printWelcomeMessage() {
+    public String readCommand() {
+        Scanner in = new Scanner(System.in);
+        String line;
+
+        line = in.nextLine();
+
+        return line;
+    }
+
+    public void printWelcomeMessage() {
         System.out.println("Welcome! :D This is TaskThomas.");
         System.out.println("What are you doing today? \n");
     }
 
-    public static void printExitMessage() {
+    public void printExitMessage() {
         System.out.println("Bye bye :( Hope to see you again soon!");
     }
 
     /*
     Prints the list of tasks and indicates whether they are done.
     */
-    public static void printList(ArrayList<Task> tasks) {
-        if (tasks.size() == 0) {
+    public void printList(TaskList tasks) {
+        if (tasks.getSize() == 0) {
             System.out.println("Oops! You have no tasks in your list. \n");
             return;
         }
 
         System.out.println("These are the tasks you have now!");
-        for (Task task : tasks) {
-            System.out.print(tasks.indexOf(task)+1 + ".");
-            task.printTask();
-        }
+        tasks.print();
         System.out.println();
     }
 
-    public static void printMarkedDoneMessage(Task task) {
+    public void printMarkedDoneMessage(Task task) {
         System.out.println("Good job! You've completed:");
         task.printTask();
         System.out.println();
     }
 
-    public static void printDeletedTaskMessage(Task task, ArrayList<Task> tasks) {
+    public void printDeletedTaskMessage(Task task, TaskList tasks) {
         System.out.println("Alright lazy bum... I'll delete this:");
         task.printTask();
-        System.out.println("Now you have " + tasks.size() + " tasks in the list! \n");
+        System.out.println("Now you have " + tasks.getSize() + " tasks in the list! \n");
     }
 
-    public static void printAddedTaskMessage(Task task, ArrayList<Task> tasks) {
+    public void printAddedTaskMessage(Task task, TaskList tasks) {
         System.out.println("Okay! I added:");
-        tasks.get(tasks.size()-1).printTask();
-        System.out.println("Now you have " + tasks.size() + " tasks in the list! \n");
+        tasks.getTask(tasks.getSize()-1).printTask();
+        System.out.println("Now you have " + tasks.getSize() + " tasks in the list! \n");
     }
 
-    public static void printEmptyDescriptionError() {
+    public void printEmptyDescriptionError() {
         System.out.println("Ohno! The description cannot be empty :( \n");
     }
 
-    public static void printMissingByError() {
+    public void printMissingByError() {
         System.out.println("Ohno! Your deadline needs a /by :( \n");
     }
 
-    public static void printMissingAtError() {
+    public void printMissingAtError() {
         System.out.println("Ohno! Your event needs an /at :( \n");
     }
 
-    public static void printMissingLabelError() {
+    public void printMissingLabelError() {
         System.out.println("Ohno! You should label your task with 'todo', 'deadline', or 'event'... \n");
     }
 
-    public static void printNumberFormatExceptionError() {
+    public void printNumberFormatExceptionError() {
         System.out.println("Ohno! Please list a task number :( \n");
     }
 
 
-    public static void printStringIndexOutOfBoundsError() {
+    public void printStringIndexOutOfBoundsError() {
         System.out.println("Ohno! You didn't list the task number :( \n");
     }
 
-    public static void printIndexOutOfBoundsError() {
+    public void printIndexOutOfBoundsError() {
         System.out.println("Ohno! This is an invalid task number :( \n");
     }
 
-    public static void printIOExceptionError(IOException e) {
+    public void printIOExceptionError(IOException e) {
         System.out.println("Something went wrong: " + e.getMessage() + "\n");
     }
+
+
 }

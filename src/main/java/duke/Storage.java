@@ -1,31 +1,33 @@
 package duke;
 
-import duke.task.Task;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import static duke.Duke.addDeadline;
-import static duke.Duke.addEvent;
-import static duke.Duke.addTodo;
+import static duke.command.AddCommand.addDeadline;
+import static duke.command.AddCommand.addEvent;
+import static duke.command.AddCommand.addTodo;
 
 public class Storage {
+    private String filePath;
+
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
     /*
-    Loads the file and creates new file if file does not exist
-     */
-    public static void loadFile(ArrayList<Task> tasks) throws IOException {
-        File file = new File("duke.txt");
+        Loads the file and creates new file if file does not exist
+         */
+    public void loadFile(TaskList tasks, Ui ui) throws IOException {
+        File file = new File(filePath);
         if (!file.exists()) {
             file.createNewFile();
         }
 
         Scanner read = new Scanner(file);
         while (read.hasNext()) {
-            loadFileTask(read.nextLine(), tasks);
+            loadFileTask(read.nextLine(), tasks, ui);
         }
         read.close();
     }
@@ -33,18 +35,18 @@ public class Storage {
     /*
     Adds individual tasks into the array
      */
-    public static void loadFileTask(String line, ArrayList<Task> tasks) {
+    public void loadFileTask(String line, TaskList tasks, Ui ui) {
         String[] taskDetails = line.split(" \\| ");
 
         switch (taskDetails[0]) {
         case "[T]":
-            addTodo(taskDetails[2], true);
+            addTodo(taskDetails[2], tasks, this, true, ui);
             break;
         case "[D]":
-            addDeadline(taskDetails[2] + " /by " + taskDetails[3], true);
+            addDeadline(taskDetails[2] + " /by " + taskDetails[3], tasks, this, true, ui);
             break;
         case "[E]":
-            addEvent(taskDetails[2] + " /at " + taskDetails[3], true);
+            addEvent(taskDetails[2] + " /at " + taskDetails[3], tasks, this, true, ui);
             break;
         default:
             // Happens if there is nothing in the list (or any garbage text)
@@ -53,7 +55,7 @@ public class Storage {
 
         // Mark as done if the task is already done
         if (taskDetails[1].equals("1")) {
-            tasks.get(tasks.size()-1).isDone = true;
+            tasks.getTask(tasks.getSize() - 1).isDone = true;
         }
     }
 
@@ -65,20 +67,20 @@ public class Storage {
     /*
     Writes data to file
      */
-    public static void writeToFile(String filePath, String line) {
+    public void writeToFile(String filePath, String line, Ui ui) {
         try {
             FileWriter writer = new FileWriter(filePath, true);
             writer.write(System.lineSeparator() + line);
             writer.close();
         } catch (IOException e) {
-            Ui.printIOExceptionError(e);
+            ui.printIOExceptionError(e);
         }
     }
 
     /*
     Updates the file
      */
-    public static void updateFile(String oldTaskString, String newTaskString) throws IOException {
+    public void updateFile(String oldTaskString, String newTaskString) throws IOException {
         File file = new File("duke.txt");
         Scanner read = new Scanner(file);
         StringBuffer buffer = new StringBuffer();
