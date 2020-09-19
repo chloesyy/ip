@@ -16,7 +16,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description + this.at;
+        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description + " | " + this.at;
     }
 
     @Override

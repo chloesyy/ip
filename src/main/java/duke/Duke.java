@@ -27,7 +27,7 @@ public class Duke {
             System.out.println("Something went wrong: " + e.getMessage());
         }
 
-        printWelcomeMessage();
+        Ui.printWelcomeMessage();
         line = in.nextLine();
 
         while (!line.equals("bye")) {
@@ -35,7 +35,7 @@ public class Duke {
             line = in.nextLine();
         }
 
-        printExitMessage();
+        Ui.printExitMessage();
     }
 
 
@@ -82,20 +82,9 @@ public class Duke {
         }
     }
 
-
-
-    public static void printWelcomeMessage() {
-        System.out.println("Welcome! :D This is TaskThomas.");
-        System.out.println("What are you doing today? \n");
-    }
-
-    public static void printExitMessage() {
-        System.out.println("Bye bye :( Hope to see you again soon!");
-    }
-
     public static void handleLine(String line) {
         if (line.equals("list")) {
-            printList();
+            Ui.printList(tasks);
         } else if (line.startsWith("done")) {
             markAsDone(line);
         } else if (line.startsWith("delete")) {
@@ -103,25 +92,6 @@ public class Duke {
         } else {
             addTask(line);
         }
-    }
-
-
-
-    /*
-    Prints the list of tasks and indicates whether they are done.
-    */
-    public static void printList() {
-        if (tasks.size() == 0) {
-            System.out.println("Oops! You have no tasks in your list. \n");
-            return;
-        }
-
-        System.out.println("These are the tasks you have now!");
-        for (Task task : tasks) {
-            System.out.print(tasks.indexOf(task)+1 + ".");
-            task.printTask();
-        }
-        System.out.println();
     }
 
     /*
@@ -132,10 +102,10 @@ public class Duke {
         try {
             taskNum = Integer.parseInt(line.substring(5));
         } catch (NumberFormatException e) {
-            System.out.println("Ohno! Please list a task number to be marked done :( \n");
+            Ui.printNumberFormatExceptionError();
             return;
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Ohno! You didn't list the task number :( \n");
+            Ui.printStringIndexOutOfBoundsError();
             return;
         }
 
@@ -148,14 +118,13 @@ public class Duke {
             updateFile(oldTaskString, task.toString());
 
             // Prints output message
-            System.out.println("Good job! You've completed:");
-            task.printTask();
-            System.out.println();
+            Ui.printMarkedDoneMessage(task);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Ohno! This is an invalid task number :( \n");
+            Ui.printIndexOutOfBoundsError();
             return;
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage() + "\n");
+            Ui.printIOExceptionError(e);
+            return;
         }
     }
 
@@ -167,10 +136,10 @@ public class Duke {
         try {
             taskNum = Integer.parseInt(line.substring(7));
         } catch (NumberFormatException e) {
-            System.out.println("Ohno! Please list a task number to be marked done :( \n");
+            Ui.printNumberFormatExceptionError();
             return;
         } catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Ohno! You didn't list the task number :( \n");
+            Ui.printStringIndexOutOfBoundsError();
             return;
         }
 
@@ -183,14 +152,12 @@ public class Duke {
             updateFile(oldTaskString, "");
 
             // Print output message
-            System.out.println("Alright lazy bum... I'll delete this:");
-            task.printTask();
-            System.out.println("Now you have " + tasks.size() + " tasks in the list! \n");
+            Ui.printDeletedTaskMessage(task, tasks);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Ohno! This is an invalid task number :( \n");
+            Ui.printIndexOutOfBoundsError();
             return;
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage() + "\n");
+            Ui.printIOExceptionError(e);
             return;
         }
     }
@@ -203,38 +170,36 @@ public class Duke {
             try {
                 addTodo(line.substring(5), false);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Ohno! The todo description cannot be empty :( \n");
+                Ui.printEmptyDescriptionError();
                 return;
             }
         } else if (line.startsWith("deadline")) {
             try {
                 addDeadline(line.substring(9), false);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Ohno! The deadline needs a description and a /by :( \n");
+                Ui.printEmptyDescriptionError();
                 return;
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Ohno! Your deadline needs a /by :( \n");
+                Ui.printMissingByError();
                 return;
             }
         } else if (line.startsWith("event")) {
             try {
                 addEvent(line.substring(6), false);
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("Ohno! The event needs a description and an /at :( \n");
+                Ui.printEmptyDescriptionError();
                 return;
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Ohno! Your event needs an /at :( \n");
+                Ui.printMissingAtError();
                 return;
             }
         } else {
             // Happens if the task is not labeled
-            System.out.println("Ohno! You should label your task with 'todo', 'deadline', or 'event'... \n");
+            Ui.printMissingLabelError();
             return;
         }
 
-        System.out.println("Okay! I added:");
-        tasks.get(tasks.size()-1).printTask();
-        System.out.println("Now you have " + tasks.size() + " tasks in the list! \n");
+        Ui.printAddedTaskMessage(tasks.get(tasks.size() -1), tasks);
     }
 
 
@@ -261,7 +226,7 @@ public class Duke {
 
     public static void addEvent(String line, Boolean fromFile) {
         String[] descriptionAndAt = line.split(" /at ");
-        tasks.add(new Event(descriptionAndAt[1], descriptionAndAt[1]));
+        tasks.add(new Event(descriptionAndAt[0], descriptionAndAt[1]));
 
         if (!fromFile) {
             writeToFile("duke.txt", tasks.get(tasks.size()-1).toString());
@@ -283,7 +248,7 @@ public class Duke {
             writer.write(System.lineSeparator() + line);
             writer.close();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage() + "\n");
+            Ui.printIOExceptionError(e);
         }
     }
 
