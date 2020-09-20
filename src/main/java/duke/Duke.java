@@ -3,6 +3,7 @@ package duke;
 import duke.command.Command;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 public class Duke {
     private static Ui ui;
@@ -19,9 +20,7 @@ public class Duke {
             ui.printIOExceptionError(e);
         }
     }
-    /*
-        MAIN METHOD
-    */
+
     public static void main(String[] args) {
         new Duke("duke.txt").run();
 
@@ -37,6 +36,8 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit;
+            } catch (DateTimeParseException e) {
+                ui.printDateTimeParseError();
             } catch (StringIndexOutOfBoundsException e) {
                 ui.printEmptyDescriptionError();
             }
@@ -44,7 +45,4 @@ public class Duke {
 
         ui.printExitMessage();
     }
-
-
-
 }

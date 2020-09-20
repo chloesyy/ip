@@ -12,8 +12,8 @@ public class Parser {
     public static Command parse(String command) {
         if (command.equals("bye")) {
             return new ExitCommand();
-        } else if (command.equals("list")) {
-            return new ListCommand();
+        } else if (command.startsWith("list")) {
+            return new ListCommand(command);
         } else if (command.startsWith("done")) {
             return new DoneCommand(command);
         } else if (command.startsWith("delete")) {

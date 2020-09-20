@@ -4,9 +4,23 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
+import java.time.LocalDate;
+
 public class ListCommand extends Command {
+    private final String command;
+    private final int DATE_INDEX = 5;
+
+    public ListCommand(String command) {
+        this.command = command;
+    }
 
     public void execute (TaskList tasks, Ui ui, Storage storage) {
-        ui.printList(tasks);
+        if (command.equals("list")) {
+            ui.printList(tasks);
+        } else {
+            LocalDate date = LocalDate.parse(command.substring(DATE_INDEX));
+            TaskList filteredList = tasks.filterByDate(date);
+            ui.printList(filteredList);
+        }
     }
 }

@@ -1,28 +1,33 @@
 package duke.task;
 
-public class Deadline extends Task {
-    private String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+//    public LocalDate date;
+
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        this.by = by;
-        this.DESCRIPTOR = "[D]";
+        descriptor = "[D]";
+//        date = LocalDate.parse(by);
+        this.setDate(LocalDate.parse(by));
     }
 
     @Override
     public String getDescriptor() {
-        return DESCRIPTOR;
+        return descriptor;
     }
 
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description + " | " + this.by;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description + " | " + date;
     }
 
     @Override
     public void printTask() {
-        System.out.print("  " + DESCRIPTOR);
-        System.out.print(this.getStatusIcon() + " " + this.description);
-        System.out.println(" (by: " + this.by + ")");
+        System.out.print("  " + descriptor);
+        System.out.print(getStatusIcon() + " " + description);
+        System.out.println(" (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
     }
 }

@@ -8,16 +8,17 @@ import duke.task.Task;
 import java.io.IOException;
 
 public class DeleteCommand extends Command {
-    private String line;
+    private String command;
+    private final int DESCRIPTION_INDEX = 7;
 
     public DeleteCommand(String line) {
-        this.line = line;
+        this.command = line;
     }
 
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         int taskNum = 0;
         try {
-            taskNum = Integer.parseInt(line.substring(7));
+            taskNum = Integer.parseInt(command.substring(DESCRIPTION_INDEX));
         } catch (NumberFormatException e) {
             ui.printNumberFormatExceptionError();
             return;

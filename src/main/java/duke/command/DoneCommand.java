@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class DoneCommand extends Command {
     private String line;
+    private final int TASKNUM_INDEX = 5;
 
     public DoneCommand(String line) {
         this.line = line;
@@ -17,7 +18,7 @@ public class DoneCommand extends Command {
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         int taskNum = 0;
         try {
-            taskNum = Integer.parseInt(line.substring(5));
+            taskNum = Integer.parseInt(line.substring(TASKNUM_INDEX));
         } catch (NumberFormatException e) {
             ui.printNumberFormatExceptionError();
             return;

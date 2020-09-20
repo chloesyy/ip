@@ -1,7 +1,9 @@
 package duke;
 
 import duke.task.Task;
+import duke.task.Todo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,10 @@ public class TaskList {
         tasks.remove(task);
     }
 
+    public void add(Task task) {
+        tasks.add(task);
+    }
+
     public void print() {
         for (Task task : tasks) {
             System.out.print(tasks.indexOf(task) + 1 + ".");
@@ -35,8 +41,13 @@ public class TaskList {
         }
     }
 
-    public void add(Task task) {
-        tasks.add(task);
+    public TaskList filterByDate(LocalDate date) {
+        ArrayList<Task> filteredList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> !(t instanceof Todo))
+                .filter((t) -> t.getDate().equals(date))
+                .collect(Collectors.toList());
+
+        return new TaskList(filteredList);
     }
 
     public TaskList find(String keyword) {
