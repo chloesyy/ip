@@ -17,6 +17,10 @@ public abstract class Task {
 
     public abstract String getDescriptor();
 
+    public String getDescription() {
+        return description;
+    }
+
     public abstract String toString();
 
     public void printTask() {
