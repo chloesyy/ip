@@ -5,7 +5,6 @@ import duke.TaskList;
 import duke.Ui;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 public class ListCommand extends Command {
     private final String command;

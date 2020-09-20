@@ -32,15 +32,15 @@ public class Duke {
 
         while (!isExit) {
             String fullCommand = ui.readCommand();
-            Command c = Parser.parse(fullCommand, tasks, ui);
             try {
+                Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
+                isExit = c.isExit;
             } catch (DateTimeParseException e) {
                 ui.printDateTimeParseError();
             } catch (StringIndexOutOfBoundsException e) {
                 ui.printEmptyDescriptionError();
             }
-            isExit = c.isExit;
         }
 
         ui.printExitMessage();

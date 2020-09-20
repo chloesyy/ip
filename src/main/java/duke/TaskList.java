@@ -1,13 +1,10 @@
 package duke;
 
-import duke.task.Deadline;
-import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskList {
@@ -53,4 +50,11 @@ public class TaskList {
         return new TaskList(filteredList);
     }
 
+    public TaskList find(String keyword) {
+        ArrayList<Task> keywordList = (ArrayList<Task>) tasks.stream()
+                .filter((t) -> t.getDescription().contains(keyword))
+                .collect(Collectors.toList());
+
+        return new TaskList(keywordList);
+    }
 }
