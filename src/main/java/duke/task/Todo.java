@@ -3,22 +3,22 @@ package duke.task;
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
-        this.DESCRIPTOR = "[T]";
+        descriptor = "[T]";
     }
 
     @Override
     public String getDescriptor() {
-        return DESCRIPTOR;
+        return descriptor;
     }
 
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description;
     }
 
     @Override
     public void printTask() {
-        System.out.print("  " + DESCRIPTOR);
+        System.out.print("  " + descriptor);
         super.printTask();
     }
 }

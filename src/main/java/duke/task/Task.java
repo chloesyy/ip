@@ -1,13 +1,16 @@
 package duke.task;
 
+import java.time.LocalDate;
+
 public abstract class Task {
     protected String description;
     public boolean isDone;
-    protected String DESCRIPTOR;
+    protected String descriptor;
+    protected LocalDate date;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatusIcon() {
@@ -17,9 +20,17 @@ public abstract class Task {
 
     public abstract String getDescriptor();
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     public abstract String toString();
 
     public void printTask() {
-        System.out.println(this.getStatusIcon() + " " + this.description);
+        System.out.println(getStatusIcon() + " " + description);
     }
 }

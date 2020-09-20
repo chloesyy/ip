@@ -1,28 +1,33 @@
 package duke.task;
 
-public class Event extends Task {
-    private String at;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String at) {
+public class Event extends Task {
+//    public LocalDate date;
+
+    public Event(String description, String at) throws DateTimeParseException {
         super(description);
-        this.at = at;
-        this.DESCRIPTOR = "[E]";
+        descriptor = "[E]";
+//        date = LocalDate.parse(at);
+        this.setDate(LocalDate.parse(at));
     }
 
     @Override
     public String getDescriptor() {
-        return DESCRIPTOR;
+        return descriptor;
     }
 
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description + this.at;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description + " | " + date;
     }
 
     @Override
     public void printTask() {
-        System.out.print("  " + DESCRIPTOR);
-        System.out.print(this.getStatusIcon() + " " + this.description);
-        System.out.println(" (at: " + this.at + ")");
+        System.out.print("  " + descriptor);
+        System.out.print(getStatusIcon() + " " + description);
+        System.out.println(" (at: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
     }
 }
