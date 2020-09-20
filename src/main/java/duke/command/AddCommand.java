@@ -7,7 +7,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
-import java.util.function.ToDoubleBiFunction;
+import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
     private String line;
@@ -35,6 +35,9 @@ public class AddCommand extends Command {
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printMissingByError();
                 return;
+            } catch (DateTimeParseException e) {
+                ui.printDateTimeParseError();
+                return;
             }
         } else if (line.startsWith("event")) {
             try {
@@ -44,6 +47,9 @@ public class AddCommand extends Command {
                 return;
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printMissingAtError();
+                return;
+            } catch (DateTimeParseException e) {
+                ui.printDateTimeParseError();
                 return;
             }
         } else {

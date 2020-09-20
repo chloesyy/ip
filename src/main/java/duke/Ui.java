@@ -88,4 +88,8 @@ public class Ui {
     public void printIOExceptionError(IOException e) {
         System.out.println("Something went wrong: " + e.getMessage() + "\n");
     }
+
+    public void printDateTimeParseError() {
+        System.out.println("Ohno! Your date should be in the format yyyy-mm-dd :( \n");
+    }
 }

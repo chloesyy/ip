@@ -1,12 +1,16 @@
 package duke.task;
 
-public class Event extends Task {
-    private String at;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Event(String description, String at) {
+public class Event extends Task {
+    private LocalDate date;
+
+    public Event(String description, String at) throws DateTimeParseException {
         super(description);
-        this.at = at;
         descriptor = "[E]";
+        date = LocalDate.parse(at);
     }
 
     @Override
@@ -16,13 +20,13 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description + at;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description + " | " + date;
     }
 
     @Override
     public void printTask() {
         System.out.print("  " + descriptor);
         System.out.print(getStatusIcon() + " " + description);
-        System.out.println(" (at: " + at + ")");
+        System.out.println(" (at: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
     }
 }

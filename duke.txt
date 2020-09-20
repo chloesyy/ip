@@ -2,5 +2,4 @@
 [T] | 0 | hello
 [T] | 0 | help
 [T] | 0 | a lot
-[E] | 0 | today | today
-[E] | 0 | today | today
+[D] | 0 | hello | 2020-01-01
