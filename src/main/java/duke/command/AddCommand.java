@@ -21,30 +21,17 @@ public class AddCommand extends Command {
 
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         if (line.startsWith("todo")) {
-            try {
-                addTodo(line.substring(TODO_DESCRIPTION_INDEX), tasks, storage, false, ui);
-            } catch (StringIndexOutOfBoundsException e) {
-                return;
-            }
+            addTodo(line.substring(TODO_DESCRIPTION_INDEX), tasks, storage, false, ui);
         } else if (line.startsWith("deadline")) {
             try {
                 addDeadline(line.substring(DEADLINE_DESCRIPTION_INDEX), tasks, storage, false, ui);
-            } catch (StringIndexOutOfBoundsException e) {
-                ui.printEmptyDescriptionError();
-                return;
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printMissingByError();
-                return;
-            } catch (DateTimeParseException e) {
-                ui.printDateTimeParseError();
                 return;
             }
         } else if (line.startsWith("event")) {
             try {
                 addEvent(line.substring(EVENT_DESCRIPTION_INDEX), tasks, storage, false, ui);
-            } catch (StringIndexOutOfBoundsException e) {
-                ui.printEmptyDescriptionError();
-                return;
             } catch (ArrayIndexOutOfBoundsException e) {
                 ui.printMissingAtError();
                 return;
@@ -64,16 +51,24 @@ public class AddCommand extends Command {
     /*
     Adds either a to-do task, deadline task or event task to the list.
      */
-    public static void addTodo(String line, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
-        tasks.add(new Todo(line));
+    public static void addTodo(String command, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
+        if (command.length() == 0) {
+            throw new StringIndexOutOfBoundsException();
+        }
+        tasks.add(new Todo(command));
 
         if (!isFromFile) {
             storage.writeToFile("duke.txt", tasks.getTask(tasks.getSize()-1).toString(), ui);
         }
     }
 
-    public static void addDeadline(String line, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
-        String[] descriptionAndBy = line.split(" /by ");
+    public static void addDeadline(String command, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
+        String[] descriptionAndBy = command.split(" /by ");
+
+        if (descriptionAndBy[0].length() == 0) {
+            throw new StringIndexOutOfBoundsException();
+        }
+
         tasks.add(new Deadline(descriptionAndBy[0], descriptionAndBy[1]));
 
         if (!isFromFile) {
@@ -81,8 +76,12 @@ public class AddCommand extends Command {
         }
     }
 
-    public static void addEvent(String line, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
-        String[] descriptionAndAt = line.split(" /at ");
+    public static void addEvent(String command, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
+        String[] descriptionAndAt = command.split(" /at ");
+
+        if (descriptionAndAt[0].length() == 0) {
+            throw new StringIndexOutOfBoundsException();
+        }
         tasks.add(new Event(descriptionAndAt[0], descriptionAndAt[1]));
 
         if (!isFromFile) {

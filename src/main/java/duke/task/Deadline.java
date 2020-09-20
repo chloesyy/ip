@@ -5,12 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    private LocalDate date;
+//    public LocalDate date;
 
     public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         descriptor = "[D]";
-        date = LocalDate.parse(by);
+//        date = LocalDate.parse(by);
+        this.setDate(LocalDate.parse(by));
     }
 
     @Override
