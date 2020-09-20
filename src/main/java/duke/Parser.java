@@ -7,6 +7,9 @@ import duke.command.DoneCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
 
+/**
+ * Represents a parser to parse command inputs by the user.
+ */
 public class Parser {
     public static Command parse(String line, TaskList tasks, Ui ui) {
         if (line.equals("bye")) {

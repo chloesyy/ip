@@ -19,9 +19,7 @@ public class Duke {
             ui.printIOExceptionError(e);
         }
     }
-    /*
-        MAIN METHOD
-    */
+
     public static void main(String[] args) {
         new Duke("duke.txt").run();
 

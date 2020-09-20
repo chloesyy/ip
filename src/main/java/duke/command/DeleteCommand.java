@@ -7,6 +7,9 @@ import duke.task.Task;
 
 import java.io.IOException;
 
+/**
+ * Represents a command which deletes a task from the TaskList.
+ */
 public class DeleteCommand extends Command {
     private String line;
 
@@ -14,6 +17,13 @@ public class DeleteCommand extends Command {
         this.line = line;
     }
 
+    /**
+     * Deletes a task from the TaskList.
+     *
+     * @param tasks Current TaskList.
+     * @param ui Interactions with the user.
+     * @param storage Saves and loads files.
+     */
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         int taskNum = 0;
         try {
