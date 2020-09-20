@@ -6,23 +6,23 @@ public class Event extends Task {
     public Event(String description, String at) {
         super(description);
         this.at = at;
-        this.DESCRIPTOR = "[E]";
+        descriptor = "[E]";
     }
 
     @Override
     public String getDescriptor() {
-        return DESCRIPTOR;
+        return descriptor;
     }
 
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description + this.at;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description + at;
     }
 
     @Override
     public void printTask() {
-        System.out.print("  " + DESCRIPTOR);
-        System.out.print(this.getStatusIcon() + " " + this.description);
-        System.out.println(" (at: " + this.at + ")");
+        System.out.print("  " + descriptor);
+        System.out.print(getStatusIcon() + " " + description);
+        System.out.println(" (at: " + at + ")");
     }
 }

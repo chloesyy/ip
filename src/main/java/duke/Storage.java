@@ -17,8 +17,8 @@ public class Storage {
     }
 
     /*
-        Loads the file and creates new file if file does not exist
-         */
+    Loads the file and creates new file if file does not exist
+    */
     public void loadFile(TaskList tasks, Ui ui) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -82,15 +82,15 @@ public class Storage {
      */
     public void updateFile(String oldTaskString, String newTaskString) throws IOException {
         File file = new File("duke.txt");
-        Scanner read = new Scanner(file);
+        Scanner scanner = new Scanner(file);
         StringBuffer buffer = new StringBuffer();
 
         // Puts everything from file into buffer
-        while (read.hasNext()) {
-            buffer.append(read.nextLine() + System.lineSeparator());
+        while (scanner.hasNext()) {
+            buffer.append(scanner.nextLine() + System.lineSeparator());
         }
 
-        read.close();
+        scanner.close();
 
         // Puts everything from buffer into String
         String fileContents = buffer.toString();

@@ -6,23 +6,23 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
-        this.DESCRIPTOR = "[D]";
+        descriptor = "[D]";
     }
 
     @Override
     public String getDescriptor() {
-        return DESCRIPTOR;
+        return descriptor;
     }
 
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description + " | " + this.by;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description + " | " + by;
     }
 
     @Override
     public void printTask() {
-        System.out.print("  " + DESCRIPTOR);
-        System.out.print(this.getStatusIcon() + " " + this.description);
-        System.out.println(" (by: " + this.by + ")");
+        System.out.print("  " + descriptor);
+        System.out.print(getStatusIcon() + " " + description);
+        System.out.println(" (by: " + by + ")");
     }
 }

@@ -3,11 +3,11 @@ package duke.task;
 public abstract class Task {
     protected String description;
     public boolean isDone;
-    protected String DESCRIPTOR;
+    protected String descriptor;
 
     public Task(String description) {
         this.description = description;
-        this.isDone = false;
+        isDone = false;
     }
 
     public String getStatusIcon() {
@@ -20,6 +20,6 @@ public abstract class Task {
     public abstract String toString();
 
     public void printTask() {
-        System.out.println(this.getStatusIcon() + " " + this.description);
+        System.out.println(getStatusIcon() + " " + description);
     }
 }

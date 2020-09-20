@@ -7,8 +7,13 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+import java.util.function.ToDoubleBiFunction;
+
 public class AddCommand extends Command {
     private String line;
+    private final int TODO_DESCRIPTION_INDEX = 5;
+    private final int DEADLINE_DESCRIPTION_INDEX = 9;
+    private final int EVENT_DESCRIPTION_INDEX = 6;
 
     public AddCommand(String line) {
         this.line = line;
@@ -17,13 +22,13 @@ public class AddCommand extends Command {
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         if (line.startsWith("todo")) {
             try {
-                addTodo(line.substring(5), tasks, storage, false, ui);
+                addTodo(line.substring(TODO_DESCRIPTION_INDEX), tasks, storage, false, ui);
             } catch (StringIndexOutOfBoundsException e) {
                 return;
             }
         } else if (line.startsWith("deadline")) {
             try {
-                addDeadline(line.substring(9), tasks, storage, false, ui);
+                addDeadline(line.substring(DEADLINE_DESCRIPTION_INDEX), tasks, storage, false, ui);
             } catch (StringIndexOutOfBoundsException e) {
                 ui.printEmptyDescriptionError();
                 return;
@@ -33,7 +38,7 @@ public class AddCommand extends Command {
             }
         } else if (line.startsWith("event")) {
             try {
-                addEvent(line.substring(6), tasks, storage, false, ui);
+                addEvent(line.substring(EVENT_DESCRIPTION_INDEX), tasks, storage, false, ui);
             } catch (StringIndexOutOfBoundsException e) {
                 ui.printEmptyDescriptionError();
                 return;
