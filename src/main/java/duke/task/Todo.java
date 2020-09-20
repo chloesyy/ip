@@ -7,7 +7,7 @@ package duke.task;
 public class Todo extends Task {
     public Todo(String description) {
         super(description);
-        this.DESCRIPTOR = "[T]";
+        descriptor = "[T]";
     }
 
     /**
@@ -17,7 +17,7 @@ public class Todo extends Task {
      */
     @Override
     public String getDescriptor() {
-        return DESCRIPTOR;
+        return descriptor;
     }
 
     /**
@@ -27,7 +27,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description;
     }
 
     /**
@@ -36,7 +36,7 @@ public class Todo extends Task {
      */
     @Override
     public void printTask() {
-        System.out.print("  " + DESCRIPTOR);
+        System.out.print("  " + descriptor);
         super.printTask();
     }
 }

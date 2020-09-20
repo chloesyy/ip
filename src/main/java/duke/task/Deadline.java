@@ -4,13 +4,16 @@ package duke.task;
  * Represents a deadline. A <code>Deadline</code> object corresponds to
  * a task with a date as the deadline.
  */
-public class Deadline extends Task {
-    private String by;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
-        this.by = by;
-        this.DESCRIPTOR = "[D]";
+        descriptor = "[D]";
+        this.setDate(LocalDate.parse(by));
     }
 
     /**
@@ -20,7 +23,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getDescriptor() {
-        return DESCRIPTOR;
+        return descriptor;
     }
 
     /**
@@ -30,7 +33,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return DESCRIPTOR + " | " + (this.isDone ? "1 | " : "0 | ") + this.description + " | " + this.by;
+        return descriptor + " | " + (isDone ? "1 | " : "0 | ") + description + " | " + date;
     }
 
     /**
@@ -39,8 +42,8 @@ public class Deadline extends Task {
      */
     @Override
     public void printTask() {
-        System.out.print("  " + DESCRIPTOR);
-        System.out.print(this.getStatusIcon() + " " + this.description);
-        System.out.println(" (by: " + this.by + ")");
+        System.out.print("  " + descriptor);
+        System.out.print(getStatusIcon() + " " + description);
+        System.out.println(" (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")");
     }
 }

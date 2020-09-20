@@ -16,11 +16,11 @@ public class Ui {
      */
     public String readCommand() {
         Scanner in = new Scanner(System.in);
-        String line;
+        String command;
 
-        line = in.nextLine();
+        command = in.nextLine();
 
-        return line;
+        return command;
     }
 
     /**
@@ -132,6 +132,7 @@ public class Ui {
     public void printIOExceptionError(IOException e) {
         System.out.println("Something went wrong: " + e.getMessage() + "\n");
     }
-
-
+    public void printDateTimeParseError() {
+        System.out.println("Ohno! Your date should be in the format yyyy-mm-dd :( \n");
+    }
 }
