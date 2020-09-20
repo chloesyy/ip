@@ -9,6 +9,9 @@ import static duke.command.AddCommand.addDeadline;
 import static duke.command.AddCommand.addEvent;
 import static duke.command.AddCommand.addTodo;
 
+/**
+ * Represents the file for data to be loaded from and saved into.
+ */
 public class Storage {
     private String filePath;
 
@@ -16,9 +19,14 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    /*
-    Loads the file and creates new file if file does not exist
-    */
+    /**
+     * Loads data from the file "duke.txt".
+     * Creates a new file if the file does not exist.
+     *
+     * @param tasks Current TaskList.
+     * @param ui Interactions with the user.
+     * @throws IOException If the file is corrupted.
+     */
     public void loadFile(TaskList tasks, Ui ui) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -32,8 +40,12 @@ public class Storage {
         read.close();
     }
 
-    /*
-    Adds individual tasks into the array
+    /**
+     * Adds individual tasks from the file into the TaskList.
+     *
+     * @param line Line from the file
+     * @param tasks Current TaskList.
+     * @param ui Interactions with the user.
      */
     public void loadFileTask(String line, TaskList tasks, Ui ui) {
         String[] taskDetails = line.split(" \\| ");
@@ -59,13 +71,12 @@ public class Storage {
         }
     }
 
-    /*
-
-    FILE UPDATE AND EDIT METHODS
-
-     */
-    /*
-    Writes data to file
+    /**
+     * Adds a line to the file.
+     *
+     * @param filePath File path of the file to be saved: "duke.txt".
+     * @param line Line to be written into the file.
+     * @param ui Interactions with the user.
      */
     public void writeToFile(String filePath, String line, Ui ui) {
         try {
@@ -77,8 +88,12 @@ public class Storage {
         }
     }
 
-    /*
-    Updates the file
+    /**
+     * Updates a certain line in the file.
+     *
+     * @param oldTaskString Old string to be updated.
+     * @param newTaskString New string to be updated to.
+     * @throws IOException If the file is corrupted.
      */
     public void updateFile(String oldTaskString, String newTaskString) throws IOException {
         File file = new File("duke.txt");
@@ -97,7 +112,7 @@ public class Storage {
 
         // Update the file
         fileContents = fileContents.replace(oldTaskString, newTaskString);
-        FileWriter writer = new FileWriter("duke.txt");
+        FileWriter writer = new FileWriter(filePath);
         writer.append(fileContents);
         writer.flush();
     }

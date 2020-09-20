@@ -10,6 +10,11 @@ public class Duke {
     private static Storage storage;
     private static TaskList tasks;
 
+    /**
+     * Instantiates a Duke instance.
+     *
+     * @param filePath File path of the file which the data is to be saved into.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         tasks = new TaskList();
@@ -21,11 +26,19 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs Duke instance.
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         new Duke("duke.txt").run();
 
     }
 
+    /**
+     * Runs the program.
+     */
     public void run() {
         ui.printWelcomeMessage();
         Boolean isExit = false;

@@ -7,6 +7,9 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
 
+/**
+ * Represents a command which adds a task to the list.
+ */
 import java.time.format.DateTimeParseException;
 
 public class AddCommand extends Command {
@@ -19,6 +22,13 @@ public class AddCommand extends Command {
         this.line = line;
     }
 
+    /**
+     * Adds a task to the TaskList.
+     *
+     * @param tasks Current TaskList.
+     * @param ui Interactions with the user.
+     * @param storage Used to save and load files.
+     */
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         if (line.startsWith("todo")) {
             addTodo(line.substring(TODO_DESCRIPTION_INDEX), tasks, storage, false, ui);
@@ -48,8 +58,14 @@ public class AddCommand extends Command {
         ui.printAddedTaskMessage(tasks.getTask(tasks.getSize() -1), tasks);
     }
 
-    /*
-    Adds either a to-do task, deadline task or event task to the list.
+    /**
+     * Adds a todo task to the TaskList.
+     *
+     * @param command User command input.
+     * @param tasks Current TaskList.
+     * @param storage Saves and loads files.
+     * @param isFromFile If adding the todo is from loading the file.
+     * @param ui Interactions with the user.
      */
     public static void addTodo(String command, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
         if (command.length() == 0) {
@@ -62,6 +78,15 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds a deadline task to the TaskList.
+     *
+     * @param command User command input.
+     * @param tasks Current TaskList.
+     * @param storage Saves and loads files.
+     * @param isFromFile If adding the deadline is from loading the file.
+     * @param ui Interactions with the user.
+     */
     public static void addDeadline(String command, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
         String[] descriptionAndBy = command.split(" /by ");
 
@@ -76,6 +101,15 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds an event task to the TaskList.
+     *
+     * @param command User command input.
+     * @param tasks Current TaskList.
+     * @param storage Saves and loads files.
+     * @param isFromFile If adding the event is from loading the file.
+     * @param ui Interactions with the user.
+     */
     public static void addEvent(String command, TaskList tasks, Storage storage, Boolean isFromFile, Ui ui) {
         String[] descriptionAndAt = command.split(" /at ");
 

@@ -6,6 +6,9 @@ import duke.Ui;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a command which lists the current TaskList to the user.
+ */
 public class ListCommand extends Command {
     private final String command;
     private final int DATE_INDEX = 5;
@@ -14,6 +17,13 @@ public class ListCommand extends Command {
         this.command = command;
     }
 
+    /**
+     * Prints the entire list of tasks to the user.
+     *
+     * @param tasks Current TaskList.
+     * @param ui Interactions with the user.
+     * @param storage Saves and loads files.
+     */
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         if (command.equals("list")) {
             ui.printList(tasks);
