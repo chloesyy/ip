@@ -5,6 +5,7 @@ import duke.TaskList;
 import duke.Ui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a command which lists the current TaskList to the user.
@@ -26,11 +27,11 @@ public class ListCommand extends Command {
      */
     public void execute (TaskList tasks, Ui ui, Storage storage) {
         if (command.equals("list")) {
-            ui.printList(tasks);
+            ui.printList(tasks, "list", "");
         } else {
             LocalDate date = LocalDate.parse(command.substring(DATE_INDEX));
             TaskList filteredList = tasks.filterByDate(date);
-            ui.printList(filteredList);
+            ui.printList(filteredList, "date", date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         }
     }
 }

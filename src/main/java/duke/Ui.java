@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -43,13 +44,22 @@ public class Ui {
      *
      * @param tasks Current TaskList.
      */
-    public void printList(TaskList tasks) {
+    public void printList(TaskList tasks, String type, String arg) {
         if (tasks.getSize() == 0) {
             System.out.println("Oops! You have no tasks in your list. \n");
             return;
         }
-
-        System.out.println("These are the tasks you have now!");
+        switch (type) {
+        case "date":
+            System.out.println("These are the tasks you have on: " + arg);
+            break;
+        case "keyword":
+            System.out.println("These are the tasks with the keyword: " + arg);
+            break;
+        default:
+            System.out.println("These are the tasks you have now!");
+            break;
+        }
         tasks.print();
         System.out.println();
     }

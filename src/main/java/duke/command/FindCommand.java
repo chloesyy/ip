@@ -26,6 +26,6 @@ public class FindCommand extends Command {
             throw new StringIndexOutOfBoundsException();
         }
         TaskList keywordList = tasks.find(keyword);
-        ui.printList(keywordList);
+        ui.printList(keywordList, "keyword", keyword);
     }
 }

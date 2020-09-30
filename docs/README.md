@@ -10,7 +10,7 @@ for you. Duke can manage your todo tasks, deadlines and events quickly.
 You can add a todo task, a deadline or an event to your task list.
 
 ### Mark a task as done
-All tasks are marked as undone by default. When you have completed 
+Your tasks will be marked as undone by default. When you have completed 
 your task, you can mark it as done.
 
 ### Delete a task
@@ -130,7 +130,7 @@ Example of usage:
 
 Expected outcome:
 
-`These are the tasks you have now!`
+`These are the tasks you have on: Oct 10 2020`
 
 `1. [D][N] project (by: Oct 10 2020)`
 
@@ -143,7 +143,7 @@ Example of usage:
 
 Expected outcome:
 
-`These are the tasks you have now!`
+`These are the tasks you have with the keyword: project`
 
 `1. [D][N] project (by: Oct 10 2020)`
 
