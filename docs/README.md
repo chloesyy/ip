@@ -43,7 +43,7 @@ Expected outcome:
 
 `Okay! I added:`
 
-`[T][N] do laundry`
+`[T][✘] do laundry`
 
 `Now you have 2 tasks in the list!`
 
@@ -58,7 +58,7 @@ Expected outcome:
 
 `Okay! I added:`
 
-`[D][N] project (by: Oct 10 2020)`
+`[D][✘] project (by: Oct 10 2020)`
 
 `Now you have 2 tasks in the list!`
 
@@ -73,7 +73,7 @@ Expected outcome:
 
 `Okay! I added:`
 
-`[E][N] project meeting (at: Sep 10 2020)`
+`[E][✘] project meeting (at: Sep 10 2020)`
 
 `Now you have 3 tasks in the list!`
 
@@ -88,20 +88,20 @@ Expected outcome:
 
 `Good job! You've completed:`
 
-`[T][Y] do laundry`
+`[T][✓] do laundry`
 
 ### `delete TASK_NUMBER` - Delete a task
 Similarly, when you delete a task, you can do it by referring to a 
 task by its task number.
 
 Example of usage: 
-`done 1`
+`delete 1`
 
 Expected outcome:
 
 `Alright lazy bum... I'll delete this:`
 
-`[T][N] do laundry`
+`[T][✘] do laundry`
 
 `Now you have 2 tasks in your list!`
 
@@ -115,11 +115,11 @@ Expected outcome:
 
 `These are the tasks you have now!`
 
-`1. [T][N] do laundry`
+`1. [T][✘] do laundry`
 
-`2. [D][N] project (by: Oct 10 2020)`
+`2. [D][✘] project (by: Oct 10 2020)`
 
-`3. [E][N] project meeting (at: Sep 10 2020)`
+`3. [E][✘] project meeting (at: Sep 10 2020)`
 
 ### `list DATE` - List tasks according to date
 `DATE` must be in the format `YYYY-MM-DD`. This lists all the
@@ -132,7 +132,7 @@ Expected outcome:
 
 `These are the tasks you have on: Oct 10 2020`
 
-`1. [D][N] project (by: Oct 10 2020)`
+`1. [D][✘] project (by: Oct 10 2020)`
 
 ### `find KEYWORD` - Find a task
 Replacing `KEYWORD` with any keyword, Duke will list all tasks
@@ -145,6 +145,6 @@ Expected outcome:
 
 `These are the tasks you have with the keyword: project`
 
-`1. [D][N] project (by: Oct 10 2020)`
+`1. [D][✘] project (by: Oct 10 2020)`
 
-`2. [E][N] project meeting (at: Sep 10 2020)`
+`2. [E][✘] project meeting (at: Sep 10 2020)`
